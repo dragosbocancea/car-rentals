@@ -28,6 +28,10 @@ const Car = sequelize.define("Car", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
+  imageURL: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 
 export default Car;

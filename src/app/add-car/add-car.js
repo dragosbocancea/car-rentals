@@ -59,7 +59,7 @@ const VehicleForm = () => {
       <div>
         <label className="block text-sm font-medium">Image URL</label>
         <input
-          {...register("image", { required: true })}
+          {...register("imageURL", { required: true })}
           className="mt-1 block w-full border border-gray-300 rounded p-2 text-black"
           placeholder="Enter image URL"
         />
@@ -117,7 +117,6 @@ const VehicleForm = () => {
 const AddCar = () => {
   return (
     <>
-      <div>Add car form</div>
       <VehicleForm />
     </>
   );
