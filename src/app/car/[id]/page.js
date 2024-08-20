@@ -7,7 +7,7 @@ const Page = async ({ params }) => {
 
   console.log(dataJSON);
   return (
-    <div className="flex flex-col items-center ">
+    <div className="flex flex-col items-center">
       <Image
         src={dataJSON.imageURL}
         objectFit="cover"
