@@ -12,6 +12,18 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  hashedPassword: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  salt: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 
 export default User;

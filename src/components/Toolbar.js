@@ -25,6 +25,8 @@ const MenuEntry = ({ children, path, closeMenu }) => {
 const Toolbar = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const closeMenu = () => setMenuOpened(false);
+  const router = useRouter();
+
   return (
     <>
       <div className="bg-emerald-400 p-2 flex justify-between	items-center">
@@ -56,7 +58,13 @@ const Toolbar = () => {
             </div>
             <div className="flex flex-col gap-2">
               <Button>Login</Button>
-              <Button>Register</Button>
+              <Button
+                onClick={() => {
+                  router.push("/register");
+                }}
+              >
+                Register
+              </Button>
             </div>
           </div>
           <div

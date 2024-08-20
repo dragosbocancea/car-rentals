@@ -13,7 +13,7 @@ const FormInput = ({
       className="mt-1 block w-full border border-gray-300 rounded p-2 text-black"
       {...register(name, { valueAsNumber })}
     />
-    {error && <span className="text-red-500 text-sm">{error.message}</span>}
+    {error && <div className="text-red-500 text-sm">{error.message}</div>}
   </>
 );
 export default FormInput;

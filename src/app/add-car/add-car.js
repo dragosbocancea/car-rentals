@@ -19,7 +19,6 @@ const VehicleForm = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const res = await fetch("/add-car/api", {
         method: "POST",
