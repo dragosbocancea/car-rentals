@@ -22,6 +22,7 @@ const CarCard = ({
           alt="Car Image"
           width={250}
           height={250}
+          className="rounded"
         />
       )}
       <div>Brand: {brand}</div>
