@@ -1,11 +1,14 @@
+import Page404 from "@/app/404/page";
 import Car from "@/db/models/Car";
 import Image from "next/image";
 
 const Page = async ({ params }) => {
   const data = await Car.findOne({ where: { id: params.id } });
+
+  console.log("data", data);
+  if (!data) return <Page404 />;
   const dataJSON = JSON.parse(JSON.stringify(data));
 
-  console.log(dataJSON);
   return (
     <div className="flex flex-col items-center">
       <Image

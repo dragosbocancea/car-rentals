@@ -9,10 +9,9 @@ const CarCard = ({
   imageURL,
   onClick = () => {},
 }) => {
-  console.log("imageURL", imageURL);
   return (
     <div
-      className="p-2 rounded border border-black hover:shadow-lg cursor-pointer"
+      className="p-2 rounded border border-black hover:shadow-lg cursor-pointer max-w-64"
       onClick={onClick}
     >
       {imageURL && (
@@ -20,8 +19,8 @@ const CarCard = ({
           src={imageURL}
           objectFit="cover"
           alt="Car Image"
-          width={250}
-          height={250}
+          width={256}
+          height={256}
           className="rounded"
         />
       )}

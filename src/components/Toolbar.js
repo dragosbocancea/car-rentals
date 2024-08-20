@@ -41,7 +41,6 @@ const Toolbar = () => {
         <>
           <div className="absolute bg-white text-black min-h-72 w-full flex justify-between flex-row p-2 z-10">
             <div className="font-bold">
-              Navigator
               <MenuEntry path="/add-car" closeMenu={closeMenu}>
                 Add Car
               </MenuEntry>
