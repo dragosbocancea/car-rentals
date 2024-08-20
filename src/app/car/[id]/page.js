@@ -1,4 +1,5 @@
 import Page404 from "@/app/404/page";
+import ComputePrice from "@/components/ComputePrice";
 import Car from "@/db/models/Car";
 import Image from "next/image";
 
@@ -31,13 +32,15 @@ const Page = async ({ params }) => {
       </div>
       <div className="flex flex-row gap-2 text-3xl">
         Cost per Hour:{" "}
-        <div className="font-black">{dataJSON.cost_per_hour}</div>
+        <div className="font-black">{dataJSON.cost_per_hour}$</div>
       </div>
       {dataJSON.description && (
         <div className="flex flex-row gap-2 text-3xl">
           <div className="font-black">{dataJSON.description}</div>
         </div>
       )}
+
+      <ComputePrice costPerHour={dataJSON.cost_per_hour} />
     </div>
   );
 };
