@@ -1,8 +1,9 @@
 "use client";
 
-const Button = ({ onClick = () => {}, children, disabled = false }) => {
+const Button = ({ onClick = () => {}, children, disabled = false, type }) => {
   return (
-    <div
+    <button
+      type={type}
       role="button"
       aria-pressed="false"
       aria-disabled={disabled}
@@ -18,7 +19,7 @@ const Button = ({ onClick = () => {}, children, disabled = false }) => {
       `}
     >
       {children}
-    </div>
+    </button>
   );
 };
 
