@@ -30,7 +30,12 @@ const Toolbar = () => {
   return (
     <>
       <div className="bg-emerald-400 p-2 flex justify-between	items-center">
-        <div className="font-bold">Car Rentals</div>
+        <div
+          className="font-bold cursor-pointer"
+          onClick={() => router.push("/")}
+        >
+          Car Rentals
+        </div>
         <div id="controls" className="flex flex-row gap-2">
           <Button
             onClick={() => {

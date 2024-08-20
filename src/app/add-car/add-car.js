@@ -1,7 +1,6 @@
 "use client";
 
 import Button from "@/components/Button";
-// import Car from "@/db/models/Car";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddCarFormSchema } from "@/types/AddCarFormSchema";

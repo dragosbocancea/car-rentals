@@ -3,6 +3,8 @@ import { generateToken } from "@/utils/generateToken";
 import sequelize from "@/utils/sequelize";
 import { verifyPassword } from "@/utils/verifyPassword";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export async function POST(request) {
   const data = await request.json();
@@ -28,5 +30,20 @@ export async function POST(request) {
     return Response.json({ token }, { status: 200 });
   } catch (error) {
     return Response.json({ error });
+  }
+}
+
+export async function GET(req) {
+  const token = req.cookies.get("access-token")?.value;
+
+  if (!token) {
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    return Response.json({ message: "Welcome!", user });
+  } catch (err) {
+    return Response.json({ message: "Invalid token" }, { status: 401 });
   }
 }

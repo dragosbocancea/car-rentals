@@ -31,7 +31,6 @@ const Register = () => {
           salt,
         }),
       });
-      //   const r = await res.json();
     } catch (error) {
       console.error("Could not create entry:", error);
     }
