@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <div className="text-2xl flex self-center justify-center">
-        Welcome to Car Rentals!
+        {`Welcome to Car Rentals, ${user && user?.name}!`}
       </div>
     </>
   );

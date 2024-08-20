@@ -4,9 +4,11 @@ import Button from "@/components/Button";
 import FormInput from "@/components/FormInputField";
 import { LoginFormSchema } from "@/types/LoginFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -24,6 +26,9 @@ const Login = () => {
         },
         body: JSON.stringify(data),
       });
+      if (await res.json()) {
+        router.push("/");
+      }
     } catch (error) {
       console.error(error);
     }

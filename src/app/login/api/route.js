@@ -25,7 +25,11 @@ export async function POST(request) {
       return Response.json({ message: "Invalid password" }, { status: 401 });
     }
 
-    const token = generateToken({ _id: user.id, email: user.email });
+    const token = generateToken({
+      _id: user.id,
+      email: user.email,
+      name: user.name,
+    });
     cookies().set("access-token", token);
     return Response.json({ token }, { status: 200 });
   } catch (error) {
