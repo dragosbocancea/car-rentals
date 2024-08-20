@@ -57,9 +57,17 @@ const Toolbar = () => {
               </MenuEntry>
             </div>
             <div className="flex flex-col gap-2">
-              <Button>Login</Button>
               <Button
                 onClick={() => {
+                  setMenuOpened(false);
+                  router.push("/login");
+                }}
+              >
+                Login
+              </Button>
+              <Button
+                onClick={() => {
+                  setMenuOpened(false);
                   router.push("/register");
                 }}
               >
