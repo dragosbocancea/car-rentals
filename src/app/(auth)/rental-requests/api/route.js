@@ -3,7 +3,7 @@ import Car from "@/db/models/Car";
 import RentalRequest from "@/db/models/RentalRequest";
 import User from "@/db/models/User";
 import { getServerSession } from "next-auth";
-import { Op } from "sequelize";
+import { literal, Op } from "sequelize";
 
 export async function POST(request) {
   const data = await request.json();
@@ -21,26 +21,26 @@ export async function POST(request) {
 
     switch (data.action) {
       case "accept":
-        const declineRemainingRequests = await RentalRequest.update(
+        RentalRequest.update(
           { status: "declined" },
           {
             where: {
-              status: "active",
               car_id: data.car.id,
               id: {
                 [Op.ne]: data.request.id,
               },
             },
           }
-        );
-        const updatedRequest = await RentalRequest.update(
-          { status: "accepted" },
-          {
-            where: {
-              id: data.request.id,
-            },
-          }
-        );
+        ).then(() => {
+          RentalRequest.update(
+            { status: "accepted" },
+            {
+              where: {
+                id: data.request.id,
+              },
+            }
+          );
+        });
 
       case "decline":
         const declinedRequest = await RentalRequest.update(

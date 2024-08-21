@@ -10,11 +10,9 @@ export const authOptions = {
   },
   callbacks: {
     async jwt(props) {
-      console.log("props", props);
       return props.token;
     },
     async session({ session, token }) {
-      console.log("props session", session, token);
       return session;
     },
   },
@@ -44,8 +42,6 @@ export const authOptions = {
               { status: 401 }
             );
           }
-
-          console.log("isValid", isValid);
 
           return {
             id: user.getDataValue("id"),
