@@ -1,3 +1,5 @@
+// "use client";
+
 import Car from "@/db/models/Car";
 import Cars from "./cars";
 import { getServerSession } from "next-auth";
@@ -21,9 +23,43 @@ const Page = async () => {
     },
   });
   const dataJSON = JSON.parse(JSON.stringify(data));
+
+  const models = [];
+  const brands = [];
+  dataJSON.forEach((car) => {
+    if (!models.includes(car.model)) models.push(car.model);
+    if (!models.includes(car.brand)) brands.push(car.brand);
+  });
   return (
     <>
-      <Cars cars={dataJSON} />
+      {/* <div className="flex gap-2 flex-wrap justify-center mx-10 mb-4">
+        <div className="w-full flex flex-row justify-between mx-20">
+          <select
+            className="border rounded px-2 py-1"
+            name="brands"
+            id="select-brand"
+            // onSelect={(val) => {
+            //   console.log(val);
+            // }}
+          >
+            <option value="">--Filter by brand--</option>
+            {brands.map((brand) => (
+              <option value={brand}>{brand}</option>
+            ))}
+          </select>
+          <select
+            className="border rounded px-2 py-1"
+            name="models"
+            id="select-model"
+          >
+            <option value="">--Filter by model--</option>
+            {models.map((model) => (
+              <option value={model}>{model}</option>
+            ))}
+          </select>
+        </div>
+      </div> */}
+      <Cars cars={dataJSON} models={models} brands={brands} />
     </>
   );
 };

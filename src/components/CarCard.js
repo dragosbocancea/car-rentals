@@ -17,7 +17,6 @@ const CarCard = ({
       {imageURL && (
         <Image
           src={imageURL}
-          objectFit="cover"
           alt="Car Image"
           width={256}
           height={256}

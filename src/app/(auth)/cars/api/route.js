@@ -1,4 +1,7 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Car from "@/db/models/Car";
+import User from "@/db/models/User";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { Op } from "sequelize";
 
@@ -27,4 +30,33 @@ export async function updateCars() {
 export async function GET() {
   await updateCars();
   return NextResponse.json({ message: "Manual update triggered." });
+}
+
+export async function POST(request) {
+  const data = await request.json();
+
+  try {
+    const session = await getServerSession(authOptions);
+    const loggedUser = await User.findOne({
+      where: {
+        email: session.user.email,
+      },
+    });
+
+    const searchObject = {
+      where: {
+        status: "available",
+        owner_id: {
+          [Op.ne]: loggedUser.getDataValue("id"),
+        },
+      },
+    };
+    if (data.model) searchObject.where.model = data.model;
+    if (data.brand) searchObject.where.brand = data.brand;
+    const cars = await Car.findAll(searchObject);
+
+    return Response.json({ cars: cars, status: 200 });
+  } catch (error) {
+    return Response.json({ message: error.message, status: 400 });
+  }
 }

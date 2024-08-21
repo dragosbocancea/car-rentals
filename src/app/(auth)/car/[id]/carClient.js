@@ -23,7 +23,6 @@ const CarClient = ({ data }) => {
     <div className="flex flex-col items-center">
       <Image
         src={data.imageURL}
-        objectFit="cover"
         alt="Car Image"
         width={400}
         height={400}
