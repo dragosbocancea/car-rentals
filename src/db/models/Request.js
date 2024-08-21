@@ -1,8 +1,8 @@
 import { default as sequelize } from "@/utils/sequelize";
 import { DataTypes } from "sequelize";
 
-const Car = sequelize.define(
-  "Car",
+const RentalRequest = sequelize.define(
+  "RentalRequest",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,31 +10,25 @@ const Car = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    brand: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    model: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    year_of_production: {
+    car_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "Cars",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     },
-    cost_per_hour: {
-      type: DataTypes.INTEGER,
+    start_date: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    imageURL: {
-      type: DataTypes.STRING,
+    end_date: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
-    owner_id: {
+    rented_to: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -44,16 +38,15 @@ const Car = sequelize.define(
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
     },
-    status: {
-      type: DataTypes.STRING,
+    total_price: {
+      type: DataTypes.FLOAT,
       allowNull: false,
-      defaultValue: "available",
     },
   },
   {
-    tableName: "Cars",
-    timestamps: true,
+    tableName: "RentalRequests",
+    timestamps: false,
   }
 );
 
-export default Car;
+export default RentalRequest;

@@ -1,6 +1,12 @@
 "use client";
 
-const Button = ({ onClick = () => {}, children, disabled = false, type }) => {
+const Button = ({
+  onClick = () => {},
+  children,
+  disabled = false,
+  type,
+  className = "",
+}) => {
   return (
     <button
       type={type}
@@ -16,7 +22,7 @@ const Button = ({ onClick = () => {}, children, disabled = false, type }) => {
             : "bg-purple-500 text-white cursor-pointer hover:bg-purple-600"
         }
         focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75
-      `}
+      ${className}`}
     >
       {children}
     </button>
