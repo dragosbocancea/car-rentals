@@ -33,23 +33,27 @@ const Rent = ({ carData, onRent }) => {
         <div className="font-bold">End date:</div>
         <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
       </div>
-      <div className="text-3xl font-black mt-10">
-        {hours >= 0 ? `Rental cost: ${price} $` : ""}
-      </div>
-      <Button
-        className="mt-4"
-        onClick={() => {
-          const rentalDetails = {
-            start_date: startDate,
-            end_date: endDate,
-            total_price: price,
-            car_id: carData.id,
-          };
-          onRent(rentalDetails);
-        }}
-      >
-        Rent
-      </Button>
+      {price > 0 && (
+        <>
+          <div className="text-3xl font-black mt-10">
+            {hours >= 0 ? `Rental cost: ${price} $` : ""}
+          </div>
+          <Button
+            className="mt-4"
+            onClick={() => {
+              const rentalDetails = {
+                start_date: startDate,
+                end_date: endDate,
+                total_price: price,
+                car_id: carData.id,
+              };
+              onRent(rentalDetails);
+            }}
+          >
+            Rent
+          </Button>
+        </>
+      )}
     </>
   );
 };

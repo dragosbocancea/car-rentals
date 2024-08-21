@@ -14,6 +14,7 @@ const Page = async () => {
   });
   const data = await Car.findAll({
     where: {
+      status: "available",
       owner_id: {
         [Op.ne]: loggedUser.getDataValue("id"),
       },

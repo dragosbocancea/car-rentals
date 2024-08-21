@@ -49,6 +49,10 @@ const Car = sequelize.define(
       allowNull: false,
       defaultValue: "available",
     },
+    available_on: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     tableName: "Cars",

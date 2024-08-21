@@ -52,8 +52,6 @@ export const authOptions = {
             name: user.getDataValue("name"),
             email: user.getDataValue("email"),
           };
-
-          return Response.json({ token }, { status: 200 });
         } catch (error) {
           return Response.json({ error });
         }
@@ -75,7 +73,6 @@ export const authOptions = {
   },
   jwt: {
     async encode(props) {
-      console.log("encode props", props);
       const token = jwt.sign(
         { email: props.token.email, name: props.token.name },
         props.secret,
@@ -85,8 +82,6 @@ export const authOptions = {
     },
     async decode({ token, secret }) {
       const verified = jwt.verify(token, secret);
-      console.log("decode", token, secret);
-      console.log("verified", verified);
       return verified;
     },
     secret: process.env.JWT_SECRET,

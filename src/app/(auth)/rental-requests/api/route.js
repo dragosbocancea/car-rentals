@@ -17,18 +17,10 @@ export async function POST(request) {
     });
 
     // console.log("loggedUser", loggedUser);
-    console.log("data", data);
+    console.log("[rental-req] data", data);
 
     switch (data.action) {
       case "accept":
-        const updatedRequest = await RentalRequest.update(
-          { status: "accepted" },
-          {
-            where: {
-              id: data.request.id,
-            },
-          }
-        );
         const declineRemainingRequests = await RentalRequest.update(
           { status: "declined" },
           {
@@ -41,7 +33,15 @@ export async function POST(request) {
             },
           }
         );
-      default:
+        const updatedRequest = await RentalRequest.update(
+          { status: "accepted" },
+          {
+            where: {
+              id: data.request.id,
+            },
+          }
+        );
+
       case "decline":
         const declinedRequest = await RentalRequest.update(
           { status: "declined" },

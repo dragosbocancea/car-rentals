@@ -37,7 +37,7 @@ export async function POST(request) {
     console.log("r", r);
 
     const c = await Car.update(
-      { status: "rented" },
+      { status: "rented", available_on: new Date(data.end_date) },
       {
         where: {
           id: data.car_id,

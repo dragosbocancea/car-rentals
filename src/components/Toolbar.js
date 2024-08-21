@@ -49,7 +49,7 @@ const Toolbar = () => {
       </div>
       {menuOpened && (
         <>
-          <div className="absolute bg-white text-black min-h-72 w-full flex justify-between flex-row p-2 z-10">
+          <div className="absolute bg-white text-black min-h-72 w-full flex justify-between flex-row p-2 z-20">
             <div className="font-bold">
               {status === "authenticated" && (
                 <>
@@ -102,7 +102,7 @@ const Toolbar = () => {
           </div>
           <div
             id="backdrop"
-            className="absolute h-full w-full backdrop-blur-sm bg-black bg-opacity-20 z-0"
+            className="absolute h-full w-full backdrop-blur-sm bg-black bg-opacity-20 z-10"
             onClick={() => {
               setMenuOpened(false);
             }}
