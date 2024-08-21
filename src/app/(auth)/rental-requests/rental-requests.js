@@ -17,7 +17,7 @@ const RentalRequests = async ({ requests }) => {
         });
         console.log(car);
         return (
-          <div className="w-full min-h-16 bg-gray-200 p-2 max-w-lg flex flex-row justify-between">
+          <div className="w-full min-h-16 bg-gray-100 p-2 max-w-lg flex flex-row justify-between rounded shadow-md">
             <div>
               <div>Brand: {car.brand}</div>
               <div>Model: {car.model}</div>
