@@ -20,6 +20,16 @@ const RentalRequest = sequelize.define(
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
     },
+    owner_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Users",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    },
     start_date: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -28,7 +38,7 @@ const RentalRequest = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    rented_to: {
+    requesting_user: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -41,6 +51,11 @@ const RentalRequest = sequelize.define(
     total_price: {
       type: DataTypes.FLOAT,
       allowNull: false,
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "active",
     },
   },
   {

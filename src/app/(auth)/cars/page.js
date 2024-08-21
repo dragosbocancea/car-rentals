@@ -12,7 +12,6 @@ const Page = async () => {
       email: session.user.email,
     },
   });
-  console.log("sessionnnn", session);
   const data = await Car.findAll({
     where: {
       owner_id: {
