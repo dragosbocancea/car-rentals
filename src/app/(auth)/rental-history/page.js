@@ -16,6 +16,7 @@ const Page = async () => {
       requesting_user: loggedUser.getDataValue("id"),
       status: "accepted",
     },
+    order: [["end_date", "DESC"]],
   });
   return (
     <RentalHistory requestsHistory={JSON.parse(JSON.stringify(requests))} />
