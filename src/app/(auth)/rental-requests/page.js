@@ -7,11 +7,13 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const Page = async () => {
   const session = await getServerSession(authOptions);
+  await User.sync();
   const loggedUser = await User.findOne({
     where: {
       email: session.user.email,
     },
   });
+  await RentalRequest.sync();
   const requests = await RentalRequest.findAll({
     where: {
       owner_id: loggedUser.getDataValue("id"),

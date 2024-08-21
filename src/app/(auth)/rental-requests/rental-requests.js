@@ -8,6 +8,7 @@ const RentalRequests = async ({ requests }) => {
         <div className="font-medium text-xl">There are no active requests</div>
       )}
       {requests.map(async (request) => {
+        await Car.sync();
         const car = await Car.findOne({
           where: {
             id: request.car_id,

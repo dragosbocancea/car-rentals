@@ -9,11 +9,13 @@ import User from "@/db/models/User";
 
 const Page = async () => {
   const session = await getServerSession(authOptions);
+  await User.sync();
   const loggedUser = await User.findOne({
     where: {
       email: session.user.email,
     },
   });
+  await Car.sync();
   const data = await Car.findAll({
     where: {
       status: "available",

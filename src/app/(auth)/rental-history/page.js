@@ -6,11 +6,13 @@ import RentalRequest from "@/db/models/RentalRequest";
 
 const Page = async () => {
   const session = await getServerSession(authOptions);
+  await User.sync();
   const loggedUser = await User.findOne({
     where: {
       email: session.user.email,
     },
   });
+  await RentalRequest.sync();
   const requests = await RentalRequest.findAll({
     where: {
       requesting_user: loggedUser.getDataValue("id"),

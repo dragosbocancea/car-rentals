@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import CarClient from "./carClient";
 
 const Page = async ({ params }) => {
+  await Car.sync();
   const data = await Car.findOne({
     where: { id: params.id, status: "available" },
   });

@@ -9,6 +9,7 @@ export async function POST(request) {
   const session = await getServerSession(authOptions);
 
   try {
+    await User.sync();
     const loggedUser = await User.findOne({
       where: {
         email: session.user.email,
@@ -22,11 +23,13 @@ export async function POST(request) {
       requesting_user: loggedUser.getDataValue("id"),
     };
 
+    await Car.sync();
     const o = await Car.findOne({
       where: {
         id: data.car_id,
       },
     });
+    await RentalRequest.sync();
     const r = await RentalRequest.create({
       ...requestEntry,
       owner_id: o.getDataValue("owner_id"),

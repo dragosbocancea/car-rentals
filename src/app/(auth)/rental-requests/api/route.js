@@ -10,6 +10,7 @@ export async function POST(request) {
   const session = await getServerSession(authOptions);
 
   try {
+    await User.sync();
     const loggedUser = await User.findOne({
       where: {
         email: session.user.email,
@@ -18,6 +19,7 @@ export async function POST(request) {
 
     switch (data.action) {
       case "accept":
+        await RentalRequest.sync();
         RentalRequest.update(
           { status: "declined" },
           {
@@ -40,6 +42,7 @@ export async function POST(request) {
         });
 
       case "decline":
+        await RentalRequest.sync();
         const declinedRequest = await RentalRequest.update(
           { status: "declined" },
           {

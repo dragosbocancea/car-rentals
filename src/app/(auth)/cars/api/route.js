@@ -7,6 +7,7 @@ import { Op } from "sequelize";
 
 export async function updateCars() {
   try {
+    await Car.sync();
     const [cars] = await Car.update(
       { status: "available", available_on: null },
       {
@@ -37,6 +38,7 @@ export async function POST(request) {
 
   try {
     const session = await getServerSession(authOptions);
+    await User.sync();
     const loggedUser = await User.findOne({
       where: {
         email: session.user.email,

@@ -25,6 +25,7 @@ export const authOptions = {
       },
       async authorize(credentials) {
         try {
+          await User.sync();
           const user = await User.findOne({
             where: {
               email: credentials.email,

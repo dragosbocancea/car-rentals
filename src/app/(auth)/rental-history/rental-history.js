@@ -7,6 +7,7 @@ const RentalHistory = ({ requestsHistory }) => {
         <div className="font-medium text-xl">There is no rental history</div>
       )}
       {requestsHistory.map(async (request) => {
+        await Car.sync();
         const car = await Car.findOne({
           where: {
             id: request.car_id,

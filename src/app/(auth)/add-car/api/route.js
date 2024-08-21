@@ -6,13 +6,15 @@ import { getServerSession } from "next-auth";
 export async function POST(request) {
   const data = await request.json();
   const session = await getServerSession(authOptions);
-  const loggedUser = await User.findOne({
-    where: {
-      email: session.user.email,
-    },
-  });
 
   try {
+    await User.sync();
+    const loggedUser = await User.findOne({
+      where: {
+        email: session.user.email,
+      },
+    });
+    await Car.sync();
     const r = await Car.create({
       ...data,
       owner_id: loggedUser.getDataValue("id"),
