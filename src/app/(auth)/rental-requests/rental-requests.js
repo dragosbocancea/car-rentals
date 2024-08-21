@@ -7,6 +7,9 @@ const RentalRequests = async ({ requests }) => {
 
   return (
     <div className="flex flex-col items-center gap-4">
+      {!!!requests.length && (
+        <div className="font-medium text-xl">There are no active requests</div>
+      )}
       {requests.map(async (request) => {
         const car = await Car.findOne({
           where: {
