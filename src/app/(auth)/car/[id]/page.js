@@ -12,7 +12,6 @@ const Page = async ({ params }) => {
   if (!data) redirect("/404");
 
   const dataJSON = JSON.parse(JSON.stringify(data));
-  console.log("dataJSON", dataJSON);
 
   return <CarClient data={dataJSON} />;
 };

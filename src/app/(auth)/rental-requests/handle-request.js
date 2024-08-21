@@ -4,7 +4,6 @@ import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 
 const HandleRequest = ({ data }) => {
-  console.log("HandleRequest", data);
   const router = useRouter();
 
   const handleRequest = async (action) => {
@@ -16,7 +15,6 @@ const HandleRequest = ({ data }) => {
       body: JSON.stringify({ ...data, action: action }),
     });
     const resJson = await res.json();
-    console.log(resJson);
     if (resJson?.message === "success") {
       router.refresh();
     }

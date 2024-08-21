@@ -2,8 +2,6 @@ import Car from "@/db/models/Car";
 import HandleRequest from "./handle-request";
 
 const RentalRequests = async ({ requests }) => {
-  console.log("requests", requests);
-
   return (
     <div className="flex flex-col items-center gap-4">
       {!!!requests.length && (
@@ -15,7 +13,6 @@ const RentalRequests = async ({ requests }) => {
             id: request.car_id,
           },
         });
-        console.log(car);
         return (
           <div className="w-full min-h-16 bg-gray-100 p-2 max-w-lg flex flex-row justify-between rounded shadow-md">
             <div>

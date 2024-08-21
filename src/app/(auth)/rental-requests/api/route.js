@@ -16,9 +16,6 @@ export async function POST(request) {
       },
     });
 
-    // console.log("loggedUser", loggedUser);
-    console.log("[rental-req] data", data);
-
     switch (data.action) {
       case "accept":
         RentalRequest.update(

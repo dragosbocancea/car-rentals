@@ -37,7 +37,6 @@ const Register = () => {
         }),
       });
       const resJson = await res.json();
-      console.log("register res", resJson);
       if (resJson.status === 200) {
         const res = await signIn("credentials", {
           redirect: false,

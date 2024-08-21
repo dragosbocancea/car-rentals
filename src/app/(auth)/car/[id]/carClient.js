@@ -6,10 +6,7 @@ import Image from "next/image";
 
 const CarClient = ({ data }) => {
   const session = useSession();
-  console.log(session);
-
   const onRent = async (rentalData) => {
-    console.log("rentalData", rentalData);
     const res = await fetch("/car/api", {
       method: "POST",
       headers: {
@@ -17,7 +14,6 @@ const CarClient = ({ data }) => {
       },
       body: JSON.stringify(rentalData),
     });
-    console.log(await res.json());
   };
   return (
     <div className="flex flex-col items-center">

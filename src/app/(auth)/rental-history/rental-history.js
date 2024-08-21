@@ -1,7 +1,6 @@
 import Car from "@/db/models/Car";
 
 const RentalHistory = ({ requestsHistory }) => {
-  console.log("requestsHistory", requestsHistory);
   return (
     <div className="flex flex-col items-center gap-4">
       {!!!requestsHistory.length && (
@@ -13,7 +12,6 @@ const RentalHistory = ({ requestsHistory }) => {
             id: request.car_id,
           },
         });
-        console.log(car);
         return (
           <div className="w-full min-h-16 bg-gray-100 p-2 max-w-lg rounded shadow-md">
             <div>

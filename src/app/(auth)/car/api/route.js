@@ -15,9 +15,6 @@ export async function POST(request) {
       },
     });
 
-    console.log("loggedUser", loggedUser);
-    console.log("data", data);
-
     const requestEntry = {
       ...data,
       start_date: new Date(data.start_date),
@@ -34,7 +31,6 @@ export async function POST(request) {
       ...requestEntry,
       owner_id: o.getDataValue("owner_id"),
     });
-    console.log("r", r);
 
     const c = await Car.update(
       { status: "rented", available_on: new Date(data.end_date) },

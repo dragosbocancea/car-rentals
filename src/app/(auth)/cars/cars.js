@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Cars = ({ cars, models, brands }) => {
-  console.log("cars", cars);
   const router = useRouter();
 
   const [model, setModel] = useState("");
@@ -23,7 +22,6 @@ const Cars = ({ cars, models, brands }) => {
       });
       const res = await cars.json();
       setFilteredCars(res.cars);
-      console.log(res);
       return res;
     };
     fetchCars();
