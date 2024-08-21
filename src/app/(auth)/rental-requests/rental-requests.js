@@ -1,4 +1,3 @@
-import Button from "@/components/Button";
 import Car from "@/db/models/Car";
 import HandleRequest from "./handle-request";
 
