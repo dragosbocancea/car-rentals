@@ -7,7 +7,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const Page = async () => {
   const session = await getServerSession(authOptions);
-  await User.sync();
+  // await User.sync();
   const loggedUser = await User.findOne({
     where: {
       email: session.user.email,
