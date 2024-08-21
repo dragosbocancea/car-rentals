@@ -1,25 +1,39 @@
 import User from "@/db/models/User";
+import { verifyPassword } from "@/utils/verifyPassword";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export const authOptions = {
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {
+    async jwt(props) {
+      console.log("props", props);
+      return props.token;
+    },
+    async session({ session, token }) {
+      console.log("props session", session, token);
+      return session;
+    },
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         try {
           const user = await User.findOne({
             where: {
-              email: data.email,
+              email: credentials.email,
             },
           });
           const isValid = verifyPassword(
-            data.password,
+            credentials.password,
             user.hashedPassword,
             user.salt
           );
@@ -31,32 +45,53 @@ export const authOptions = {
             );
           }
 
-          // const token = generateToken({
-          //   _id: user.id,
-          //   email: user.email,
-          //   name: user.name,
-          // });
-          cookies().set("access-token", token);
+          console.log("isValid", isValid);
+
+          return {
+            id: user.getDataValue("id"),
+            name: user.getDataValue("name"),
+            email: user.getDataValue("email"),
+          };
+
           return Response.json({ token }, { status: 200 });
         } catch (error) {
           return Response.json({ error });
         }
-        if (
-          credentials.username === "user" &&
-          credentials.password === "pass"
-        ) {
-          return { id: 1, name: "John Doe", email: "john@example.com" };
-        }
-        return null;
       },
     }),
   ],
   session: {
     strategy: "jwt",
   },
+  cookies: {
+    sessionToken: {
+      name: "session-token",
+      options: {
+        httpOnly: false,
+        secure: false,
+        path: "/",
+      },
+    },
+  },
   jwt: {
+    async encode(props) {
+      console.log("encode props", props);
+      const token = jwt.sign(
+        { email: props.token.email, name: props.token.name },
+        props.secret,
+        { expiresIn: "1h" }
+      );
+      return token;
+    },
+    async decode({ token, secret }) {
+      const verified = jwt.verify(token, secret);
+      console.log("decode", token, secret);
+      console.log("verified", verified);
+      return verified;
+    },
     secret: process.env.JWT_SECRET,
   },
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

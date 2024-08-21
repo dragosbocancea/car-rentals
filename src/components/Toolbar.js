@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Button from "./Button";
 import { usePathname, useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 const MenuEntry = ({ children, path, closeMenu }) => {
   const router = useRouter();
@@ -27,6 +28,8 @@ const Toolbar = () => {
   const closeMenu = () => setMenuOpened(false);
   const router = useRouter();
 
+  const { status } = useSession();
+
   return (
     <>
       <div className="bg-emerald-400 p-2 flex justify-between	items-center">
@@ -48,36 +51,53 @@ const Toolbar = () => {
         <>
           <div className="absolute bg-white text-black min-h-72 w-full flex justify-between flex-row p-2 z-10">
             <div className="font-bold">
-              <MenuEntry path="/add-car" closeMenu={closeMenu}>
-                Add Car
-              </MenuEntry>
-              <MenuEntry path="/cars" closeMenu={closeMenu}>
-                View All Listed Cars
-              </MenuEntry>
-              <MenuEntry path="/rental-history" closeMenu={closeMenu}>
-                Rental History
-              </MenuEntry>
-              <MenuEntry path="/rental-requests" closeMenu={closeMenu}>
-                Rental Requests
-              </MenuEntry>
+              {status === "authenticated" && (
+                <>
+                  <MenuEntry path="/add-car" closeMenu={closeMenu}>
+                    Add Car
+                  </MenuEntry>
+                  <MenuEntry path="/cars" closeMenu={closeMenu}>
+                    View All Listed Cars
+                  </MenuEntry>
+                  <MenuEntry path="/rental-history" closeMenu={closeMenu}>
+                    Rental History
+                  </MenuEntry>
+                  <MenuEntry path="/rental-requests" closeMenu={closeMenu}>
+                    Rental Requests
+                  </MenuEntry>
+                </>
+              )}
             </div>
             <div className="flex flex-col gap-2">
-              <Button
-                onClick={() => {
-                  setMenuOpened(false);
-                  router.push("/login");
-                }}
-              >
-                Login
-              </Button>
-              <Button
-                onClick={() => {
-                  setMenuOpened(false);
-                  router.push("/register");
-                }}
-              >
-                Register
-              </Button>
+              {status === "authenticated" ? (
+                <Button
+                  onClick={() => {
+                    setMenuOpened(false);
+                    signOut();
+                  }}
+                >
+                  Logout
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    onClick={() => {
+                      setMenuOpened(false);
+                      router.push("/login");
+                    }}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setMenuOpened(false);
+                      router.push("/register");
+                    }}
+                  >
+                    Register
+                  </Button>
+                </>
+              )}
             </div>
           </div>
           <div

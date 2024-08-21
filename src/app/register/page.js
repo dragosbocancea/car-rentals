@@ -5,9 +5,14 @@ import FormInput from "@/components/FormInputField";
 import { RegisterFormSchema } from "@/types/RegisterFormSchema";
 import { hashPassword } from "@/utils/hashPassword";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
+  const router = useRouter();
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -31,6 +36,18 @@ const Register = () => {
           salt,
         }),
       });
+      const resJson = await res.json();
+      console.log("register res", resJson);
+      if (resJson.status === 200) {
+        const res = await signIn("credentials", {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+        });
+        router.push("/");
+      } else if (resJson.status === 401) {
+        setError(resJson.error);
+      }
     } catch (error) {
       console.error("Could not create entry:", error);
     }
@@ -68,6 +85,7 @@ const Register = () => {
         register={register}
         error={errors.confirmPassword}
       />
+      {error && <div className="text-red-500 text-sm">{error}</div>}
       <Button type="submit">Submit</Button>
     </form>
   );

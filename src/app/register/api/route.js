@@ -5,9 +5,10 @@ export async function POST(request) {
   const data = await request.json();
 
   try {
-    const r = await User.create(data);
-    return Response.json().status(200);
+    const createdUser = await User.create(data);
+    console.log("createdUser", createdUser);
+    return Response.json({ message: "success", status: 200 });
   } catch (error) {
-    return Response.json({ error });
+    return Response.json({ error: error?.errors[0]?.message, status: 401 });
   }
 }

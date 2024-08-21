@@ -6,6 +6,7 @@ import { LoginFormSchema } from "@/types/LoginFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const router = useRouter();
@@ -19,16 +20,12 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await fetch("/login/api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
       });
-      if (await res.json()) {
-        router.push("/");
-      }
+      router.push("/");
     } catch (error) {
       console.error(error);
     }

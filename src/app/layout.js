@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Toolbar from "@/components/Toolbar";
+import ClientLayout from "./clientLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,12 +9,11 @@ export const metadata = {
   description: "Car Rentals",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toolbar />
-        <div className="p-2">{children}</div>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
