@@ -27,7 +27,8 @@ const VehicleForm = () => {
         body: JSON.stringify(data),
       });
       const r = await res.json();
-      router.push(`/car/${r.id}`);
+      console.log("r", r);
+      if (r.id) router.push(`/car/${r.id}`);
       console.log("res", r);
     } catch (error) {
       console.error("Could not create entry:", error);
